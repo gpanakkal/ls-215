@@ -4,8 +4,10 @@
  */
 
 function longestSentence(text) {
-  const sentences = [...text.match(/[^\.!?]+[\.!?]/gi)];
-  const words = (sentence) => sentence.split(/\s/g).filter((word) => word.length);
+  const match = text.match(/[^\s\.!?][^\.!?]+[\.!?]/gi);
+  if (!match) return;
+  const sentences = [...match];
+  const words = (sentence) => sentence.split(/\s/g);
   const longest = sentences
     .reduce((longest, sentence) => words(sentence).length > words(longest).length ? sentence : longest);
   console.log(`${longest}\n`);
@@ -13,7 +15,7 @@ function longestSentence(text) {
 }
 
 function longestSentence2(text) {
-  const sentences = [...text.match(/[^\.!?]+[\.!?]/gi)];
+  const sentences = [...text.match(/[^\s\.!?]+[\.!?]/gi)];
   const words = (sentence) => [...sentence.match(/\b\w+\b/gi)];
   const longest = sentences
     .reduce((longest, sentence) => words(sentence).length > words(longest).length ? sentence : longest);
@@ -64,3 +66,5 @@ longestSentence(longText);
 // Four score and seven years ago our fathers brought forth on this continent a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.
 
 // The longest sentence has 30 words.
+
+// longestSentence(' .');
